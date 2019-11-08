@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 11:45:06
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-08 11:49:34
+# @Last Modified time: 2019-11-08 17:56:06
 
 def test_sample1():
-    assert 5 == 6
+    assert 5 == 7
