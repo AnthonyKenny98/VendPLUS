@@ -1,6 +1,6 @@
 <img src="img/vend.png" alt="project logo image" width="200"/>
 
-# Vend Inventory Upload &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm) [![npm](https://img.shields.io/npm/v/npm.svg?style=flat-square)](https://www.npmjs.com/package/npm) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+# Vend Inventory Upload &middot; [![Build Status](https://img.shields.io/travis/npm/npm/latest.svg?style=flat-square)](https://travis-ci.org/npm/npm)  [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=requirements.txt) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
 > Additional information or tag line
 
 Locally Hosted Web Application for easy CSV upload of inventory numbers for the POS and Inventory Management Software "Vend"
