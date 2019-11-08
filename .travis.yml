@@ -8,3 +8,6 @@ install:
 # command to run tests
 script:
   - pytest
+# disable notifications
+notifications:
+  email: false
