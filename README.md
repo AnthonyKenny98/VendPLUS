@@ -91,4 +91,4 @@ If the api is external, link to api documentation. If not describe your api incl
 
 ## Licensing
 
-State what the license is and how to find the text version of the license.
+This project is licensed under the MIT License.  See the [LICENSE](LICENSE) file for more information.
