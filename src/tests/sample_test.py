@@ -3,10 +3,9 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 11:45:06
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-08 17:59:30
+# @Last Modified time: 2019-11-08 19:02:10
+
 
 def test_sample1():
-    assert 5 == 7
-
-def test_sample2():
-    assert 6 == 7
+    """Sample Test."""
+    assert 1 == 1
