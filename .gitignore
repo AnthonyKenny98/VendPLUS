@@ -109,5 +109,5 @@ venv.bak/
 # .DS_Store
 .DS_Store
 
-# Credentials files
-*.credentials
+# secure files
+secure/
