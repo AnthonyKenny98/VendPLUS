@@ -3,14 +3,16 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-10 18:39:54
+# @Last Modified time: 2019-11-17 17:50:17
 
 from os import path
 import requests
 import json
+import time
 
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
+CREDENTIALS = ['client_id', 'client_secret', 'access']
 
 
 class Vend:
@@ -19,9 +21,9 @@ class Vend:
     def __init__(self):
         """Initialise Class."""
         self.cred_path = None
-        self.client_id = None
-        self.client_secret = None
+        self.credentials = {}
         self.headers = None
+        self.authenticated = False
 
         # Get filepath
         py_path = path.dirname(path.realpath(__file__))
@@ -30,22 +32,33 @@ class Vend:
         py_path += '/secure' if path.isdir(py_path + '/secure') else '/example'
 
         self.cred_path = py_path
-        # Init Credentials
-        with open(py_path + '/client_id.credentials', 'r') as f1, \
-                open(py_path + '/client_secret.credentials', 'r') as f2:
-            self.client_id = f1.read()
-            self.client_secret = f2.read()
 
-    def authorize(self):
+        # Init Credentials
+        for cred in CREDENTIALS:
+            cred_path = '{}/{}.credentials'.format(py_path, cred)
+            if not path.exists(cred_path):
+                return
+            with open(cred_path, 'r') as f:
+                self.credentials[cred] = f.read()
+
+        # Check access token is valid
+        self.credentials['access'] = json.loads(self.credentials['access'])
+        if int(time.time()) <= self.credentials['access']['expires']:
+            self.refresh_credentials()
+
+        # If at this point, should have access credentials
+        self.authenticated = True
+
+    def authenticate(self):
         """Authorize app for Vend Store."""
         if not path.exists(self.cred_path + '/access.credentials'):
             authorize_url = VEND_CONNECT_URL + \
                 '?response_type=code&client_id={}&redirect_uri={}'.format(
-                    self.client_id,
+                    self.credentials['client_id'],
                     REDIRECT_URI
                 )
             return authorize_url
-        return '/'
+        return '/authenticate'
 
     def request_auth(self, data, payload):
         """Send Authentication Request."""
@@ -76,8 +89,8 @@ class Vend:
         # Build Payload for Request
         payload = {
             'code': data['code'],
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
+            'client_id': self.credentials['client_id'],
+            'client_secret': self.credentials['client_secret'],
             'grant_type': 'authorization_code',
             'redirect_uri': REDIRECT_URI
         }
@@ -93,8 +106,8 @@ class Vend:
         # Build Payload for request
         payload = {
             'refresh_token': credentials['refresh_token'],
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
+            'client_id': self.credentials['client_id'],
+            'client_secret': self.credentials['client_secret'],
             'grant_type': 'refresh_token'
         }
 

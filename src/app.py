@@ -3,36 +3,34 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-10 17:01:44
+# @Last Modified time: 2019-11-17 17:51:07
 
-from vend.vend import Vend
+from .vend import Vend
 
-from flask import Flask, jsonify, request, redirect
+from flask import Flask, request, redirect
 app = Flask(__name__)
 
 
 @app.route('/authenticate', methods=['GET'])
 def authenticate():
     """Authorize."""
-    return redirect(Vend().authorize())
+    return redirect(Vend().authenticate())
 
 
 @app.route('/token', methods=['GET'])
 def token():
     """Authorize."""
-    return str(Vend().save_credentials(request.args.to_dict()))
-
-
-@app.route('/refresh', methods=['GET'])
-def refresh():
-    """Authorize."""
-    return str(Vend().refresh_credentials())
+    Vend().save_credentials(request.args.to_dict())
+    return redirect('/')
 
 
 @app.route('/')
 def index():
     """Basic Respond."""
-    return jsonify({"Message": "Response"})
+    v = Vend()
+    if not v.authenticated:
+        return redirect('/authenticate')
+    return "Authenticated"
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
