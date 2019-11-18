@@ -3,16 +3,17 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-17 17:50:17
+# @Last Modified time: 2019-11-18 11:12:34
 
 from os import path
 import requests
 import json
 import time
+from flask import redirect
 
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
-CREDENTIALS = ['client_id', 'client_secret', 'access']
+CREDENTIALS = 'vend'
 
 
 class Vend:
@@ -20,50 +21,44 @@ class Vend:
 
     def __init__(self):
         """Initialise Class."""
-        self.cred_path = None
         self.credentials = {}
-        self.headers = None
         self.authenticated = False
 
         # Get filepath
         py_path = path.dirname(path.realpath(__file__))
-
-        # Append credentials directory to filepath
         py_path += '/secure' if path.isdir(py_path + '/secure') else '/example'
 
-        self.cred_path = py_path
-
         # Init Credentials
-        for cred in CREDENTIALS:
-            cred_path = '{}/{}.credentials'.format(py_path, cred)
-            if not path.exists(cred_path):
-                return
-            with open(cred_path, 'r') as f:
-                self.credentials[cred] = f.read()
+        with open('{}/{}.credentials'.format(py_path, CREDENTIALS), 'r') as f:
+            self.credentials = json.load(f)
+
+        if 'access_token' not in self.credentials:
+            return
 
         # Check access token is valid
-        self.credentials['access'] = json.loads(self.credentials['access'])
-        if int(time.time()) <= self.credentials['access']['expires']:
+        if int(time.time()) >= self.credentials['expires']:
             self.refresh_credentials()
 
         # If at this point, should have access credentials
         self.authenticated = True
+        self.headers = {'Authorization': 'Bearer {}'.format(
+            self.credentials['access_token'])}
 
     def authenticate(self):
         """Authorize app for Vend Store."""
-        if not path.exists(self.cred_path + '/access.credentials'):
-            authorize_url = VEND_CONNECT_URL + \
-                '?response_type=code&client_id={}&redirect_uri={}'.format(
-                    self.credentials['client_id'],
-                    REDIRECT_URI
-                )
-            return authorize_url
-        return '/authenticate'
+        authorize_url = VEND_CONNECT_URL + \
+            '?response_type=code&client_id={}&redirect_uri={}'.format(
+                self.credentials['client_id'],
+                REDIRECT_URI
+            )
+        return redirect(authorize_url)
 
-    def request_auth(self, data, payload):
+    def request_auth(self, payload):
         """Send Authentication Request."""
         # Construct URL for token endpoint
-        url = self.base_url(data['domain_prefix'], '/1.0/token')
+        url = self.base_url(
+            self.credentials['domain_prefix'],
+            '/1.0/token')
 
         # Save credentials as json
         credentials = requests.post(url, data=payload).json()
@@ -72,21 +67,21 @@ class Vend:
         if 'error' in credentials.keys():
             return False
 
-        # Confirm domain_prefix saved in credentials
-        credentials['domain_prefix'] = data['domain_prefix']
-
-        # Confirm refresh_token saved in credentials
-        if 'refresh_token' not in credentials.keys():
-            credentials['refresh_token'] = data['refresh_token']
+        # Update self.credentials
+        for key, val in credentials.items():
+            self.credentials[key] = val
 
         # Write credentials to file
-        with open(self.cred_path + '/access.credentials', 'w') as f:
-            f.write(json.dumps(credentials))
+        py_path = path.dirname(path.realpath(__file__))
+        py_path += '/secure' if path.isdir(py_path + '/secure') else '/example'
+        with open('{}/{}.credentials'.format(py_path, CREDENTIALS), 'w') as f:
+            f.write(json.dumps(self.credentials, indent=4))
         return True
 
     def save_credentials(self, data):
         """Save credentials for accessing vend account."""
         # Build Payload for Request
+        self.credentials['domain_prefix'] = data['domain_prefix']
         payload = {
             'code': data['code'],
             'client_id': self.credentials['client_id'],
@@ -95,23 +90,24 @@ class Vend:
             'redirect_uri': REDIRECT_URI
         }
 
-        return self.request_auth(data, payload)
+        return self.request_auth(payload)
 
     def refresh_credentials(self):
         """Refresh credentials for accessing Vend Account."""
-        # Load Access Credentials
-        with open(self.cred_path + '/access.credentials', 'r') as f:
-            credentials = json.loads(f.read())
-
         # Build Payload for request
         payload = {
-            'refresh_token': credentials['refresh_token'],
+            'refresh_token': self.credentials['refresh_token'],
             'client_id': self.credentials['client_id'],
             'client_secret': self.credentials['client_secret'],
             'grant_type': 'refresh_token'
         }
 
-        return self.request_auth(credentials, payload)
+        return self.request_auth(payload)
+
+    def products(self):
+        """Get Products."""
+        url = self.base_url(self.credentials['domain_prefix'], '/2.0/products')
+        return requests.get(url, headers=self.headers).json()
 
     @staticmethod
     def base_url(domain_prefix, path):
