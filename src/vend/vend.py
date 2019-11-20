@@ -3,13 +3,12 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-19 19:33:14
+# @Last Modified time: 2019-11-19 21:08:45
 
 from os import path
 import requests
 import json
 import time
-from flask import redirect
 
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
@@ -105,10 +104,43 @@ class Vend:
 
         return self.request_auth(payload)
 
-    def products(self):
+    def get(self, url, params={}, limit=None):
+        """Get all data associated with a request."""
+        params['after'] = 0
+        data = []
+        while params['after'] >= 0:
+            r = requests.get(url, headers=self.headers, params=params).json()
+            if not r['data']:
+                params['after'] = -1
+            else:
+                params['after'] = r['version']['max']
+                data.extend(r['data'])
+        return data
+
+    def product(self, product_id=None):
         """Get Products."""
         url = self.base_url(self.credentials['domain_prefix'], '/2.0/products')
-        return requests.get(url, headers=self.headers).json()
+        if product_id is not None:
+            url += '/' + product_id
+        params = {'after': '12537522916'}
+        return self.get(url, params=params)
+
+    def inventory_count(self):
+        """Get Inventory Counts."""
+        url = self.base_url(self.credentials['domain_prefix'],
+                            '/2.0/consignments')
+        status_codes = [
+            'STOCKTAKE_SCHEDULED',
+            'STOCKTAKE_IN_PROGRESS',
+            'STOCKTAKE_IN_PROGRESS_PROCESSED'
+        ]
+        consignments = []
+        for code in status_codes:
+            consignments.extend(self.get(url, params={
+                "type": "STOCKTAKE",
+                'status': code
+            }))
+        return consignments
 
     @staticmethod
     def base_url(domain_prefix, path):
