@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-18 11:03:41
+# @Last Modified time: 2019-11-19 19:33:09
 
 from .vend import Vend
 
@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/authenticate', methods=['GET'])
 def authenticate():
     """Authorize."""
-    return Vend().authenticate()
+    return redirect(Vend().authenticate())
 
 
 @app.route('/token', methods=['GET'])

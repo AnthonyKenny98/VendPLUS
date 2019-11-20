@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-18 11:12:34
+# @Last Modified time: 2019-11-19 19:33:14
 
 from os import path
 import requests
@@ -20,7 +20,7 @@ class Vend:
     """Provide Class for interfacing with Vend API."""
 
     def __init__(self):
-        """Initialise Class."""
+        """Initialise, set self.authenticated True once authenticated."""
         self.credentials = {}
         self.authenticated = False
 
@@ -32,6 +32,7 @@ class Vend:
         with open('{}/{}.credentials'.format(py_path, CREDENTIALS), 'r') as f:
             self.credentials = json.load(f)
 
+        # Return unauthenticated if no access_token
         if 'access_token' not in self.credentials:
             return
 
@@ -45,13 +46,13 @@ class Vend:
             self.credentials['access_token'])}
 
     def authenticate(self):
-        """Authorize app for Vend Store."""
+        """Retrun url to authenticate app for Vend Domain."""
         authorize_url = VEND_CONNECT_URL + \
             '?response_type=code&client_id={}&redirect_uri={}'.format(
                 self.credentials['client_id'],
                 REDIRECT_URI
             )
-        return redirect(authorize_url)
+        return authorize_url
 
     def request_auth(self, payload):
         """Send Authentication Request."""
