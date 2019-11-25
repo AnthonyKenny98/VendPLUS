@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:11:36
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-19 21:05:01
+# @Last Modified time: 2019-11-25 16:58:48
 
 from src.vend import Vend
 
@@ -33,9 +33,9 @@ def test_product():
     assert len(products) > 1
 
 
-def test_inventory_count():
+def test_get_inventory_count():
     """TODO."""
     v = Vend()
-    inventory_counts = v.inventory_count()
+    inventory_counts = v.get_inventory_count()
     assert type(inventory_counts) is list
     assert len(inventory_counts) > 1

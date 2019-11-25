@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-19 21:08:45
+# @Last Modified time: 2019-11-25 17:03:31
 
 from os import path
 import requests
@@ -117,15 +117,19 @@ class Vend:
                 data.extend(r['data'])
         return data
 
+    def outlet(self):
+        """Get Outlets."""
+        url = self.base_url(self.credentials['domain_prefix'], '/2.0/outlets')
+        return self.get(url)
+
     def product(self, product_id=None):
         """Get Products."""
         url = self.base_url(self.credentials['domain_prefix'], '/2.0/products')
         if product_id is not None:
             url += '/' + product_id
-        params = {'after': '12537522916'}
-        return self.get(url, params=params)
+        return self.get(url)
 
-    def inventory_count(self):
+    def get_inventory_count(self):
         """Get Inventory Counts."""
         url = self.base_url(self.credentials['domain_prefix'],
                             '/2.0/consignments')
@@ -141,6 +145,9 @@ class Vend:
                 'status': code
             }))
         return consignments
+
+    # def create_inventory_count(self):
+        """Create Inventory Count"""
 
     @staticmethod
     def base_url(domain_prefix, path):
