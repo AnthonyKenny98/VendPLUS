@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-25 19:48:33
+# @Last Modified time: 2019-11-26 15:05:43
 
 from os import path
 import requests
@@ -56,9 +56,7 @@ class Vend:
     def request_auth(self, payload):
         """Send Authentication Request."""
         # Construct URL for token endpoint
-        url = self.base_url(
-            self.credentials['domain_prefix'],
-            '/1.0/token')
+        url = self.url('token')
 
         # Save credentials as json
         credentials = requests.post(url, data=payload).json()
@@ -104,6 +102,18 @@ class Vend:
 
         return self.request_auth(payload)
 
+    def url(self, endpoint):
+        """Generate URL for a given Domain Prefix and endpoint."""
+        selector = {
+            'token': '/1.0/token',
+            'outlet': '/2.0/outlets',
+            'product': '/2.0/products',
+            'inventory_count': '/2.0/consignments',
+        }
+        return 'https://{}.vendhq.com/api{}'.format(
+            self.credentials['domain_prefix'],
+            selector[endpoint])
+
     def get(self, url, params={}):
         """Get all data associated with a request."""
         params['after'] = 0
@@ -119,20 +129,19 @@ class Vend:
 
     def outlet(self):
         """Get Outlets."""
-        url = self.base_url(self.credentials['domain_prefix'], '/2.0/outlets')
+        url = self.url('outlet')
         return self.get(url)
 
     def product(self, product_id=None):
         """Get Products."""
-        url = self.base_url(self.credentials['domain_prefix'], '/2.0/products')
+        url = self.url('product')
         if product_id is not None:
             url += '/' + product_id
         return self.get(url)
 
     def get_inventory_count(self):
         """Get Inventory Counts."""
-        url = self.base_url(self.credentials['domain_prefix'],
-                            '/2.0/consignments')
+        url = self.url('inventory_count')
         status_codes = [
             'STOCKTAKE_SCHEDULED',
             'STOCKTAKE_IN_PROGRESS',
@@ -148,8 +157,7 @@ class Vend:
 
     def create_inventory_count(self):
         """Create Inventory Count."""
-        url = self.base_url(
-            self.credentials['domain_prefix'], '/2.0/consignments')
+        url = self.url('inventory_count')
         payload = {
             'outlet_id': self.outlet()[0]['id'],
             'name': 'TESTCOUNTANTHONY',
@@ -157,14 +165,12 @@ class Vend:
             'type': 'STOCKTAKE',
             'show_inactive': 1
         }
-        return requests.post(url, data=payload, headers=self.headers)
+        return requests.post(
+            url, data=payload, headers=self.headers).json()['data']
 
     def start_inventory_count(self, inventory_count):
         """Start Inventory Count."""
-        # url to create inventory count
-        url = self.base_url(
-            self.credentials['domain_prefix'],
-            '/2.0/consignments/{}'.format(inventory_count['id']))
+        url = self.url('inventory_count') + '/' + inventory_count['id']
         payload = {
             'outlet_id': inventory_count['outlet_id'],
             'name': inventory_count['name'],
@@ -173,7 +179,16 @@ class Vend:
         }
         return requests.put(url, headers=self.headers, data=payload)
 
-    @staticmethod
-    def base_url(domain_prefix, path):
-        """Generate Base URL for a given Domain Prefix."""
-        return 'https://{}.vendhq.com/api{}'.format(domain_prefix, path)
+    def delete_inventory_count(self, inventory_count):
+        """Delete Inventory Count."""
+        url = self.url('inventory_count') + '/' + inventory_count['id']
+        return requests.delete(url, headers=self.headers)
+
+    def update_inventory_count(self, count, product_id, inventory):
+        """Update Product Count for an Inventory Count."""
+        url = self.url('inventory_count') + '/{}/products'.format(count['id'])
+        payload = {
+            'product_id': product_id,
+            'received': inventory
+        }
+        return requests.post(url, headers=self.headers, data=payload)
