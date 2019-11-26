@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-25 17:03:31
+# @Last Modified time: 2019-11-25 19:48:33
 
 from os import path
 import requests
@@ -104,7 +104,7 @@ class Vend:
 
         return self.request_auth(payload)
 
-    def get(self, url, params={}, limit=None):
+    def get(self, url, params={}):
         """Get all data associated with a request."""
         params['after'] = 0
         data = []
@@ -146,8 +146,32 @@ class Vend:
             }))
         return consignments
 
-    # def create_inventory_count(self):
-        """Create Inventory Count"""
+    def create_inventory_count(self):
+        """Create Inventory Count."""
+        url = self.base_url(
+            self.credentials['domain_prefix'], '/2.0/consignments')
+        payload = {
+            'outlet_id': self.outlet()[0]['id'],
+            'name': 'TESTCOUNTANTHONY',
+            'status': 'STOCKTAKE_SCHEDULED',
+            'type': 'STOCKTAKE',
+            'show_inactive': 1
+        }
+        return requests.post(url, data=payload, headers=self.headers)
+
+    def start_inventory_count(self, inventory_count):
+        """Start Inventory Count."""
+        # url to create inventory count
+        url = self.base_url(
+            self.credentials['domain_prefix'],
+            '/2.0/consignments/{}'.format(inventory_count['id']))
+        payload = {
+            'outlet_id': inventory_count['outlet_id'],
+            'name': inventory_count['name'],
+            'status': "STOCKTAKE_IN_PROGRESS",
+            'type': "STOCKTAKE"
+        }
+        return requests.put(url, headers=self.headers, data=payload)
 
     @staticmethod
     def base_url(domain_prefix, path):
