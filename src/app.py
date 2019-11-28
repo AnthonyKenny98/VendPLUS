@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-19 19:33:09
+# @Last Modified time: 2019-11-28 14:02:33
 
 from .vend import Vend
 
@@ -31,6 +31,7 @@ def index():
     if not v.authenticated:
         return redirect('/authenticate')
     return "Authenticated"
+
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
