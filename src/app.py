@@ -3,11 +3,12 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-28 14:02:33
+# @Last Modified time: 2019-11-28 14:59:32
 
 from .vend import Vend
 
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template
+
 app = Flask(__name__)
 
 
@@ -30,7 +31,7 @@ def index():
     v = Vend()
     if not v.authenticated:
         return redirect('/authenticate')
-    return "Authenticated"
+    return render_template('index.html', message="TEST")
 
 
 if __name__ == '__main__':
