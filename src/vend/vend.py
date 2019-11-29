@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-29 12:21:00
+# @Last Modified time: 2019-11-29 15:44:02
 
 from os import path
 import requests
@@ -13,6 +13,7 @@ import time
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
 CREDENTIALS = 'vend'
+
 
 class Vend:
     """Provide Class for interfacing with Vend API."""
