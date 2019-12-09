@@ -4,7 +4,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-29 12:21:17
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-29 12:26:12
+# @Last Modified time: 2019-11-30 14:14:26
 
 INTEREST_KEYS = ['id', 'outlet_id', 'name', 'type', 'status']
 

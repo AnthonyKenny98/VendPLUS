@@ -3,9 +3,9 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-29 15:43:18
+# @Last Modified time: 2019-11-30 17:15:11
 
-from .vend import Vend
+from .vend import PrettyVend as Vend
 from .controller import format_data
 
 from flask import Flask, request, redirect, render_template
