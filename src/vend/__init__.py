@@ -3,6 +3,6 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-17 16:54:25
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-30 17:14:47
+# @Last Modified time: 2019-12-16 16:21:51
 
-from .prettyVend import PrettyVend  # noqa: F401
+from .vend import Vend  # noqa: F401
