@@ -28,13 +28,15 @@
                 <thead>
                   <tr>
                     {% for key in data['table']['data'][0].keys() %}
+                    {% if key != 'href' %}
                     <th>{{ key }}</th>
+                    {% endif %}
                     {% endfor %}
                   </tr>
                 </thead>
                 <tbody>
                   {% for row in data['table']['data'] %}
-                  <tr class="row-clickable" data-href="/">
+                  <tr class="row-clickable" data-href="{{row.pop('href')}}">
                     {% for val in row.values() %}
                     <td>{{ val }}</td>
                     {% endfor %}

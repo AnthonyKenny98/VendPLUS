@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-12-18 19:40:10
+# @Last Modified time: 2019-12-18 21:31:48
 
 from os import path
 import requests
@@ -218,16 +218,29 @@ class Vend(VendSuper):
     def get_inventory_count(self):
         """Return user friendly inventory count data."""
         data = super().get_inventory_count()
-        fields = {
-            'outlet_id': {
-                'title': 'Outlet',
-                'func': lambda x: self.outlet(x)['name']},
-            'name': {'title': 'Count Name', 'func': str},
-            'status': {'title': 'Count Status', 'func': str},
-            'created_at': {
-                'title': 'Date Created',
-                'func': lambda x: datetime.strptime(
-                    x, '%Y-%m-%dT%H:%M:%S+00:00').date()}
-        }
-        return [{fields[key]['title']: fields[key]['func'](val) for key, val
-                in d.items() if key in fields.keys()} for d in data]
+        # fields = {
+        #     'outlet_id': {
+        #         'title': 'Outlet',
+        #         'func': lambda x: self.outlet(x)['name']},
+        #     'name': {'title': 'Count Name', 'func': str},
+        #     'status': {'title': 'Count Status', 'func': str},
+        #     'created_at': {
+        #         'title': 'Date Created',
+        #         'func': lambda x: datetime.strptime(
+        #             x, '%Y-%m-%dT%H:%M:%S+00:00').date()},
+        #     # 'href': '/'
+        # }
+        ui_data = []
+        for d in data:
+            ui_data.append({
+                'Outlet': self.outlet(d['outlet_id'])['name'],
+                'Count Name': d['name'],
+                'Count Status': d['status'],
+                'Date Created': datetime.strptime(
+                    d['created_at'], '%Y-%m-%dT%H:%M:%S+00:00').date(),
+                'href': 'https://{}.vendhq.com/inventory_count/{}'.format(
+                    self.credentials['domain_prefix'], d['id'])
+            })
+        return ui_data
+        # return [{fields[key]['title']: fields[key]['func'](val) for key, val
+        # in d.items() if key in fields.keys()} for d in data]
