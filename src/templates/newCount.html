@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %} {{ super() }} {% endblock %}
+
+{% block mainContainer %}
+    {{ super() }}
+
+<!-- <body class="bg-dark"> -->
+
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Create Inventory Count</div>
+      <div class="card-body">
+        <form>
+
+          <div class="form-group">
+            <div class="form-label-group">
+              <input type="text" id="countName" class="form-control" placeholder="Inventory Count Name" required="required" autofocus="autofocus">
+              <label for="countName">Inventory Count Name</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label-group">
+              <select>
+                {% for outlet in outlets %}
+                <option value={{ outlet["id"] }}>{{ outlet["name"] }}</option>
+                {% endfor %}
+              </select>
+              <!-- <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
+              <label for="inputPassword">Password</label> -->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="file">
+              <label>
+                Upload Count CSV
+                <input type="file" value="fileUpload">
+              </label>
+            </div>
+          </div>
+
+          <a class="btn btn-primary btn-block" href="index.html">Create Inventory Count</a>
+
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="register.html">CSV Upload Format</a>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+
+  {% endblock %}

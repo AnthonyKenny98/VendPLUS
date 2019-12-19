@@ -53,6 +53,13 @@ def inventory_count():
         })
 
 
+@app.route('/inventory_count/create', methods=['GET', 'POST'])
+def new_inventory_count():
+    """Create Inventory Count."""
+    v = connect_vend()
+    return render_template('newCount.html', outlets=v.outlet())
+
+
 @app.errorhandler(404)
 def not_found(e):
     """Inbuilt function which takes error as parameter."""
