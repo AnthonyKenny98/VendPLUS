@@ -3,12 +3,13 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-12-18 18:38:09
+# @Last Modified time: 2019-12-18 19:40:10
 
 from os import path
 import requests
 import json
 import time
+from datetime import datetime
 
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
@@ -218,11 +219,15 @@ class Vend(VendSuper):
         """Return user friendly inventory count data."""
         data = super().get_inventory_count()
         fields = {
-            'id': {'title': 'Count ID'},
-            'outlet_id': {'title': 'Outlet ID'},
-            'name': {'title': 'Count Name'},
-            'type': {'title': 'Count Type'},
-            'status': {'title': 'Count Status'},
+            'outlet_id': {
+                'title': 'Outlet',
+                'func': lambda x: self.outlet(x)['name']},
+            'name': {'title': 'Count Name', 'func': str},
+            'status': {'title': 'Count Status', 'func': str},
+            'created_at': {
+                'title': 'Date Created',
+                'func': lambda x: datetime.strptime(
+                    x, '%Y-%m-%dT%H:%M:%S+00:00').date()}
         }
-        return [{fields[key]['title']: val for key, val in d.items()
-                if key in fields.keys()} for d in data]
+        return [{fields[key]['title']: fields[key]['func'](val) for key, val
+                in d.items() if key in fields.keys()} for d in data]
