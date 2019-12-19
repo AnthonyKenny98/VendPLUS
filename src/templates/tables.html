@@ -12,29 +12,31 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="\">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Tables</li>
         </ol>
 
-        <!-- DataTables Example -->
+        <!-- DataTable -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Data Table Example</div>
+            {{ data['table']['name'] }}</div>
           <div class="card-body">
             <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    {% for key in data[0].keys() %}
+                    {% for key in data['table']['data'][0].keys() %}
+                    {% if key != 'href' %}
                     <th>{{ key }}</th>
+                    {% endif %}
                     {% endfor %}
                   </tr>
                 </thead>
                 <tbody>
-                  {% for row in data %}
-                  <tr>
+                  {% for row in data['table']['data'] %}
+                  <tr class="row-clickable" data-href="{{row.pop('href')}}">
                     {% for val in row.values() %}
                     <td>{{ val }}</td>
                     {% endfor %}
@@ -44,7 +46,6 @@
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
       </div>
       <!-- /.container-fluid -->

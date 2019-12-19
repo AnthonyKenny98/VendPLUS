@@ -5,7 +5,6 @@
 # @Last Modified by:   AnthonyKenny98
 
 from .vend import Vend
-from .controller import format_data
 
 from flask import Flask, request, redirect, render_template
 
@@ -37,7 +36,7 @@ def token():
 def index():
     """Basic Respond."""
     connect_vend()
-    return render_template('index.html', message="TEST")
+    return render_template('index.html')
 
 
 @app.route('/inventory_count', methods=['GET'])
@@ -46,7 +45,18 @@ def inventory_count():
     v = connect_vend()
     return render_template(
         'tables.html',
-        data=v.get_inventory_count())
+        data={
+            'table': {
+                'name': 'Active Inventory Counts',
+                'data': v.get_inventory_count()
+            }
+        })
+
+
+@app.errorhandler(404)
+def not_found(e):
+    """Inbuilt function which takes error as parameter."""
+    return render_template("404.html")
 
 
 if __name__ == '__main__':

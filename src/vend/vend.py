@@ -3,12 +3,13 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-12-18 18:07:25
+# @Last Modified time: 2019-12-19 13:15:55
 
 from os import path
 import requests
 import json
 import time
+from datetime import datetime
 
 REDIRECT_URI = 'http://127.0.0.1:5000/token'
 VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
@@ -120,16 +121,20 @@ class VendSuper:
         data = []
         while params['after'] >= 0:
             r = requests.get(url, headers=self.headers, params=params).json()
-            if not r['data']:
+            if 'version' not in r.keys():
+                return r['data']
+            elif not r['data']:
                 params['after'] = -1
             else:
                 params['after'] = r['version']['max']
                 data.extend(r['data'])
         return data
 
-    def outlet(self):
+    def outlet(self, outlet_id=None):
         """Get Outlets."""
         url = self.url('outlet')
+        if outlet_id is not None:
+            url += '/' + outlet_id
         return self.get(url)
 
     def product(self, product_id=None):
@@ -208,6 +213,12 @@ class Vend(VendSuper):
     def get_inventory_count(self):
         """Return user friendly inventory count data."""
         data = super().get_inventory_count()
-        interest_keys = ['id', 'outlet_id', 'name', 'type', 'status']
-        return [{key: val for key, val in d.items() if key in interest_keys}
-                for d in data]
+        return [{
+            'Outlet': self.outlet(d['outlet_id'])['name'],
+            'Count Name': d['name'],
+            'Count Status': d['status'],
+            'Date Created': datetime.strptime(
+                d['created_at'], '%Y-%m-%dT%H:%M:%S+00:00').date(),
+            'href': 'https://{}.vendhq.com/inventory_count/{}'.format(
+                self.credentials['domain_prefix'], d['id'])
+        } for d in data]
