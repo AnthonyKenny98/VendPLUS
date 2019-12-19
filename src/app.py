@@ -46,7 +46,7 @@ def inventory_count():
     v = connect_vend()
     return render_template(
         'tables.html',
-        data=format_data(v.get_inventory_count()))
+        data=v.get_inventory_count())
 
 
 if __name__ == '__main__':

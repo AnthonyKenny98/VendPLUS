@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-29 15:44:02
+# @Last Modified time: 2019-12-18 18:07:25
 
 from os import path
 import requests
@@ -15,8 +15,8 @@ VEND_CONNECT_URL = 'https://secure.vendhq.com/connect'
 CREDENTIALS = 'vend'
 
 
-class Vend:
-    """Provide Class for interfacing with Vend API."""
+class VendSuper:
+    """Provide functionality for interfacing with Vend API."""
 
     def __init__(self):
         """Initialise, set self.authenticated True once authenticated."""
@@ -192,3 +192,22 @@ class Vend:
             'received': inventory
         }
         return requests.post(url, headers=self.headers, data=payload)
+
+
+class Vend(VendSuper):
+    """
+    Provide functionality for interfacing with Vend API.
+
+    Return UI friendly values.
+    """
+
+    def __init__(self):
+        """Initialise. No added functionality."""
+        super().__init__()
+
+    def get_inventory_count(self):
+        """Return user friendly inventory count data."""
+        data = super().get_inventory_count()
+        interest_keys = ['id', 'outlet_id', 'name', 'type', 'status']
+        return [{key: val for key, val in d.items() if key in interest_keys}
+                for d in data]
