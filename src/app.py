@@ -36,7 +36,7 @@ def token():
 def index():
     """Basic Respond."""
     connect_vend()
-    return render_template('index.html', message="TEST")
+    return render_template('index.html')
 
 
 @app.route('/inventory_count', methods=['GET'])
