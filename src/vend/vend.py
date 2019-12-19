@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-12-18 18:07:25
+# @Last Modified time: 2019-12-18 18:38:09
 
 from os import path
 import requests
@@ -120,16 +120,20 @@ class VendSuper:
         data = []
         while params['after'] >= 0:
             r = requests.get(url, headers=self.headers, params=params).json()
-            if not r['data']:
+            if 'version' not in r.keys():
+                return r['data']
+            elif not r['data']:
                 params['after'] = -1
             else:
                 params['after'] = r['version']['max']
                 data.extend(r['data'])
         return data
 
-    def outlet(self):
+    def outlet(self, outlet_id=None):
         """Get Outlets."""
         url = self.url('outlet')
+        if outlet_id is not None:
+            url += '/' + outlet_id
         return self.get(url)
 
     def product(self, product_id=None):
@@ -205,9 +209,20 @@ class Vend(VendSuper):
         """Initialise. No added functionality."""
         super().__init__()
 
+    def outlet(self, outlet_id=None):
+        """Return UI friendly outlet data."""
+        data = super().outlet(outlet_id)
+        return data
+
     def get_inventory_count(self):
         """Return user friendly inventory count data."""
         data = super().get_inventory_count()
-        interest_keys = ['id', 'outlet_id', 'name', 'type', 'status']
-        return [{key: val for key, val in d.items() if key in interest_keys}
-                for d in data]
+        fields = {
+            'id': {'title': 'Count ID'},
+            'outlet_id': {'title': 'Outlet ID'},
+            'name': {'title': 'Count Name'},
+            'type': {'title': 'Count Type'},
+            'status': {'title': 'Count Status'},
+        }
+        return [{fields[key]['title']: val for key, val in d.items()
+                if key in fields.keys()} for d in data]
