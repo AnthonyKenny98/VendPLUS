@@ -51,5 +51,11 @@ def inventory_count():
         })
 
 
+@app.errorhandler(404)
+def not_found(e):
+    """Inbuilt function which takes error as parameter."""
+    return render_template("404.html")
+
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
