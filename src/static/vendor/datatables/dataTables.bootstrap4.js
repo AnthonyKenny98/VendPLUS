@@ -179,6 +179,13 @@ DataTable.ext.renderer.pageButton.bootstrap = function ( settings, host, idx, bu
 	}
 };
 
+$(document).ready(function($) {
+    $(".row-clickable").click(function() {
+        window.document.location = $(this).data("href");
+    });
+});
+
+
 
 return DataTable;
 }));

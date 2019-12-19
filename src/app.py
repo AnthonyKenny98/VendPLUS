@@ -46,8 +46,10 @@ def inventory_count():
     return render_template(
         'tables.html',
         data={
-            'tableName': 'Active Inventory Counts',
-            'tableData': v.get_inventory_count()
+            'table': {
+                'name': 'Active Inventory Counts',
+                'data': v.get_inventory_count()
+            }
         })
 
 
