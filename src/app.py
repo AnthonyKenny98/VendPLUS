@@ -5,7 +5,6 @@
 # @Last Modified by:   AnthonyKenny98
 
 from .vend import Vend
-from .controller import format_data
 
 from flask import Flask, request, redirect, render_template
 
@@ -46,7 +45,10 @@ def inventory_count():
     v = connect_vend()
     return render_template(
         'tables.html',
-        data=v.get_inventory_count())
+        data={
+            'tableName': 'Active Inventory Counts',
+            'tableData': v.get_inventory_count()
+        })
 
 
 if __name__ == '__main__':

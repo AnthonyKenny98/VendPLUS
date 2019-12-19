@@ -12,28 +12,28 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="\">Dashboard</a>
           </li>
           <li class="breadcrumb-item active">Tables</li>
         </ol>
 
-        <!-- DataTables Example -->
+        <!-- DataTable -->
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Data Table Example</div>
+            {{ data["tableName"] }}</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    {% for key in data[0].keys() %}
+                    {% for key in data["tableData"][0].keys() %}
                     <th>{{ key }}</th>
                     {% endfor %}
                   </tr>
                 </thead>
                 <tbody>
-                  {% for row in data %}
+                  {% for row in data["tableData"] %}
                   <tr>
                     {% for val in row.values() %}
                     <td>{{ val }}</td>
@@ -44,7 +44,6 @@
               </table>
             </div>
           </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
       </div>
       <!-- /.container-fluid -->
