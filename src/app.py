@@ -60,7 +60,7 @@ def new_inventory_count():
     if request.method == 'GET':
         return render_template('newCount.html', outlets=v.outlet())
     else:
-        return "Post"
+        return str(request.form)
 
 
 @app.errorhandler(404)
