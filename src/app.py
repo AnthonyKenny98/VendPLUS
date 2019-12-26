@@ -57,7 +57,10 @@ def inventory_count():
 def new_inventory_count():
     """Create Inventory Count."""
     v = connect_vend()
-    return render_template('newCount.html', outlets=v.outlet())
+    if request.method == 'GET':
+        return render_template('newCount.html', outlets=v.outlet())
+    else:
+        return "Post"
 
 
 @app.errorhandler(404)
