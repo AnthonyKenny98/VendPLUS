@@ -60,7 +60,7 @@ def new_inventory_count():
     if request.method == 'GET':
         return render_template('newCount.html', outlets=v.outlet())
     else:
-        return request.form['fileUpload']
+        return str('fileUpload' in request.files)
 
 
 @app.errorhandler(404)
