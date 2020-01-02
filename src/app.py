@@ -53,6 +53,12 @@ def inventory_count():
         })
 
 
+def allowed_file(filename):
+    """Check if file is a csv."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ['csv']
+
+
 @app.route('/inventory_count/create', methods=['GET', 'POST'])
 def new_inventory_count():
     """Create Inventory Count."""
@@ -60,8 +66,13 @@ def new_inventory_count():
     if request.method == 'GET':
         return render_template('newCount.html', outlets=v.outlet())
     else:
-        return str('fileUpload' in request.files)
-
+        file = request.files['fileUpload']
+        if file.filename == '':
+            return render_template('newCount.html', outlets=v.outlet(),
+                                   message="No File Uploaded")
+        if not allowed_file(file.filename):
+            return render_template('newCount.html', outlets=v.outlet(),
+                                   message="File was not a .csv")
 
 @app.errorhandler(404)
 def not_found(e):
