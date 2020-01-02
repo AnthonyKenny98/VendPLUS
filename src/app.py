@@ -7,8 +7,13 @@
 from .vend import Vend
 
 from flask import Flask, request, redirect, render_template
+from werkzeug.utils import secure_filename
+import os
+
 
 app = Flask(__name__)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+app.config['UPLOAD_FOLDER'] = dir_path + '/uploads'
 
 
 def connect_vend():
@@ -73,6 +78,9 @@ def new_inventory_count():
         if not allowed_file(file.filename):
             return render_template('newCount.html', outlets=v.outlet(),
                                    message="File was not a .csv")
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        return "DONE"
 
 @app.errorhandler(404)
 def not_found(e):
