@@ -1,10 +1,9 @@
 """Provide Main App Functionality."""
-
 # -*- coding: utf-8 -*-
 # @Author: AnthonyKenny98
 # @Date:   2019-11-29 12:21:17
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-11-30 14:14:26
+# @Last Modified time: 2020-01-03 12:25:36
 
 INTEREST_KEYS = ['id', 'outlet_id', 'name', 'type', 'status']
 

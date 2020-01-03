@@ -95,6 +95,8 @@ def new_inventory_count():
             reader = csv.DictReader(f)
             for row in reader:
                 v.update_inventory_count(count, products[row['sku']], row['quantity'])
+
+        os.remove(filename)
         return redirect('/inventory_count')
 
 

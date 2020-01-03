@@ -114,3 +114,6 @@ secure/
 
 # local testing
 local.py
+
+# temp files
+temp/*.*
