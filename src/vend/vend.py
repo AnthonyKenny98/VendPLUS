@@ -3,7 +3,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2019-11-10 14:09:50
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2019-12-19 14:10:03
+# @Last Modified time: 2020-01-03 11:50:34
 
 from os import path
 import requests
@@ -160,12 +160,12 @@ class VendSuper:
             }))
         return consignments
 
-    def create_inventory_count(self):
+    def create_inventory_count(self, name, outlet_id):
         """Create Inventory Count."""
         url = self.url('inventory_count')
         payload = {
-            'outlet_id': self.outlet()[0]['id'],
-            'name': 'TESTCOUNTANTHONY',
+            'outlet_id': outlet_id,
+            'name': name,
             'status': 'STOCKTAKE_SCHEDULED',
             'type': 'STOCKTAKE',
             'show_inactive': 1

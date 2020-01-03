@@ -5,15 +5,15 @@
 # @Last Modified by:   AnthonyKenny98
 
 from .vend import Vend
-
-from flask import Flask, request, redirect, render_template
 from werkzeug.utils import secure_filename
+from flask import Flask, request, redirect, render_template
 import os
+import csv
 
 
 app = Flask(__name__)
 dir_path = os.path.dirname(os.path.realpath(__file__))
-app.config['UPLOAD_FOLDER'] = dir_path + '/uploads'
+app.config["TEMP_PATH"] = dir_path + '/temp'
 
 
 def connect_vend():
@@ -78,9 +78,25 @@ def new_inventory_count():
         if not allowed_file(file.filename):
             return render_template('newCount.html', outlets=v.outlet(),
                                    message="File was not a .csv")
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return "DONE"
+
+        # Save file to temp folder
+        filename = os.path.join(app.config['TEMP_PATH'],
+                                secure_filename(file.filename))
+        file.save(filename)
+
+        products = {p['sku']: p['id'] for p in v.product()}
+
+        # Create Inventory Count
+        count = v.create_inventory_count(request.form['inventoryCountName'],
+                                         request.form['outlet'])
+        v.start_inventory_count(count)
+
+        with open(filename, 'r') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                v.update_inventory_count(count, products[row['sku']], row['quantity'])
+        return redirect('/inventory_count')
+
 
 @app.errorhandler(404)
 def not_found(e):
