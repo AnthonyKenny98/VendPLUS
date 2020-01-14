@@ -3,7 +3,7 @@
 # Vend Inventory Upload &middot; [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=requirements.txt) [![Build Status](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload.svg?branch=master)](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
 > Locally Hosted Web Application for easy CSV upload of inventory numbers for the POS and Inventory Management Software "Vend"
 
-This README is intended to give an overview of this project for developers. For those who wish to use the product, please go to this project's website.
+This README is intended to give an overview of this project for developers. For those who merely wish to use the product, please go to this project's website.
 
 
 ## Table of Contents
@@ -31,7 +31,9 @@ commands here
 Here you should say what actually happens when you execute the code above.
 
 ### <a name="builtwith"> </a>Built With
-List main libraries, frameworks used including versions (React, Angular etc...)
++ [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
++ [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to []() for this particular template.
++ [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
 
 ### <a name="prereq"></a>Prerequisites
 What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
