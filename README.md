@@ -6,7 +6,6 @@
 
 ## Table of Contents
 
-+ [Prerequisites](#prereq)
 + [Installation/Setup](#setup)
   + [Built With](#builtwith)
   + [Prerequisites](#prereq)
