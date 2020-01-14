@@ -7,7 +7,19 @@
 
 <!-- <body class="bg-dark"> -->
 
+<div id="content-wrapper">
+
+
   <div class="container">
+
+<!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{{data['breadcrumbs'][0][1]}}">{{data['breadcrumbs'][0][0]}}</a>
+          </li>
+          <li class="breadcrumb-item active">{{data['breadcrumbs'][1][0]}}</li>
+        </ol>
+
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Create Inventory Count</div>
       <div class="card-body">
@@ -23,7 +35,7 @@
           <div class="form-group">
             <div class="form-label-group">
               <select name="outlet" form="form">
-                {% for outlet in outlets %}
+                {% for outlet in data["outlets"] %}
                 <option value={{ outlet["id"] }}>{{ outlet["name"] }}</option>
                 {% endfor %}
               </select>
@@ -48,6 +60,6 @@
         </div>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
 
   {% endblock %}

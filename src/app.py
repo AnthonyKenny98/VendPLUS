@@ -2,11 +2,12 @@
 # -*- coding: utf-8 -*-
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
-# @Last Modified by:   AnthonyKenny98
+# @Last Modified by:   Anthony
 
 from .vend import Vend
 from werkzeug.utils import secure_filename
 from flask import Flask, request, redirect, render_template
+# send_from_directory)
 import os
 import csv
 
@@ -22,6 +23,14 @@ def connect_vend():
     if not v.authenticated:
         return redirect('/authenticate')
     return v
+
+
+# @app.route('/favicon.ico')
+# def favicon():
+#     """Render Favicon."""
+#     return send_from_directory(
+#         os.path.join(app.root_path, 'static'),
+#         'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/authenticate', methods=['GET'])
@@ -51,6 +60,9 @@ def inventory_count():
     return render_template(
         'tables.html',
         data={
+            'breadcrumbs': [
+                ("Inventory", "/inventory_count"),
+                ("Inventory Counts", '/inventory_count')],
             'table': {
                 'name': 'Active Inventory Counts',
                 'data': v.get_inventory_count()
@@ -69,7 +81,14 @@ def new_inventory_count():
     """Create Inventory Count."""
     v = connect_vend()
     if request.method == 'GET':
-        return render_template('newCount.html', outlets=v.outlet())
+        return render_template(
+            'newCount.html',
+            data={
+                'outlets': v.outlet(),
+                'breadcrumbs': [
+                    ("Inventory", "/inventory_count"),
+                    ("New Inventory Count", '/inventory_count/create')]
+            })
     else:
         file = request.files['fileUpload']
         if file.filename == '':
@@ -94,7 +113,8 @@ def new_inventory_count():
         with open(filename, 'r') as f:
             reader = csv.DictReader(f)
             for row in reader:
-                v.update_inventory_count(count, products[row['sku']], row['quantity'])
+                v.update_inventory_count(
+                    count, products[row['sku']], row['quantity'])
 
         os.remove(filename)
         return redirect('/inventory_count')
