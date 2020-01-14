@@ -17,8 +17,6 @@
 + [API Reference](#api)
 + [Licensing](#license)
 
-## <a name="prereq"></a>Prerequisites
-
 ## <a name="setup"></a>Installation/Setup
 
 A quick introduction of the minimal setup you need to get a hello world up &
