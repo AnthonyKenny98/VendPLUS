@@ -32,7 +32,7 @@ Here you should say what actually happens when you execute the code above.
 
 ### <a name="builtwith"> </a>Built With
 + [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
-+ [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to []() for this particular template.
++ [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to [BlackRock Digital](https://github.com/BlackrockDigital) for the [StartBootstrap Admin Template](https://github.com/BlackrockDigital/startbootstrap-sb-admin) template, which served as a foundation for this application's UI.
 + [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
 
 ### <a name="prereq"></a>Prerequisites
