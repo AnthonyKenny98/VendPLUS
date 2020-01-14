@@ -11,7 +11,10 @@
   + [Built With](#builtwith)
   + [Prerequisites](#prereq)
   + [Building](#build)
++ [Versioning](#version)
 + [Configuration](#config)
++ [Tests](#test)
++ [Style Guide](#style)
 + [API Reference](#api)
 + [Licensing](#license)
 
@@ -48,17 +51,17 @@ make install
 Here again you should state what actually happens when the code above gets
 executed.
 
-## Versioning
+## <a name="version"></a>Versioning
 
 We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
 
 
-## Configuration
+## <a name="config"></a>Configuration
 
 Here you should write what are all of the configurations a user can enter when
 using the project.
 
-## Tests
+## <a name="tests"></a>Tests
 
 Describe and show how to run the tests with code examples.
 Explain what these tests test and why.
@@ -67,14 +70,14 @@ Explain what these tests test and why.
 Give an example
 ```
 
-## Style guide
+## <a name="style"></a>Style Guide
 
 Explain your code style and show how to check it.
 
-## Api Reference
+## <a name="api"></a>Api Reference
 
 If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
 
-## Licensing
+## <a name="license"></a>Licensing
 
 This project is licensed under the MIT License.  See the [LICENSE](LICENSE) file for more information.
