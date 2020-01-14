@@ -1,7 +1,7 @@
 # @Author: AnthonyKenny98
 # @Date:   2020-01-14 15:18:30
 # @Last Modified by:   AnthonyKenny98
-# @Last Modified time: 2020-01-14 16:05:05
+# @Last Modified time: 2020-01-14 17:05:57
 
 clear
 
@@ -50,7 +50,13 @@ log_print "Done\n\n"
 
 # Installing Dependencies
 log_print "Installing Dependencies...\n\n"
+    # Check if pip3 is installed
+if ! hash pip3 2>/dev/null; then
+    log_print "\nERROR: pip3 is not installed and is required.\n"
+    exit 1;
+fi
 pip3 install -r requirements.txt >> $INSTALL_LOG
+# Need to do some installation check here
 log_print "Done\n\n"
 
 # Deactivate Virtual Environment
