@@ -36,7 +36,13 @@ Here you should say what actually happens when you execute the code above.
 + [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
 
 ### <a name="prereq"></a>Prerequisites
-What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
++ [Homebrew](https://brew.sh/#install): Homebrew is a package manager for MacOS and Linux. It is only important for downloading and installing Python 3.7.6. Homebrew can be installed by executing the following command in the Terminal:
+
+  ```
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ```
++ [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew
++ [pip3](https://pip.pypa.io/en/stable/): Installed with Homebrew
 
 ### <a name="build"></a>Building
 
