@@ -70,20 +70,23 @@ using the project.
 
 ## <a name="tests"></a>Tests
 
-Describe and show how to run the tests with code examples.
-Explain what these tests test and why.
+This project uses pytest for unit testing.
 
 ```shell
-Give an example
+(venv) $ python3 -m pytest
 ```
 
 ## <a name="style"></a>Style Guide
 
-Explain your code style and show how to check it.
+This project uses the flake8 style guide for python. It can also be tested using pytest:
+
+```shell
+(venv) $ python3 -m pytest --flake8
+```
 
 ## <a name="api"></a>Api Reference
 
-If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
++ [Vend POS API](https://docs.vendhq.com/)
 
 ## <a name="license"></a>Licensing
 
