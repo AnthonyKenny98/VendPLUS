@@ -12,7 +12,7 @@
   + [Building](#build)
 + [Versioning](#version)
 + [Configuration](#config)
-+ [Tests](#test)
++ [Tests](#tests)
 + [Style Guide](#style)
 + [API Reference](#api)
 + [Licensing](#license)
