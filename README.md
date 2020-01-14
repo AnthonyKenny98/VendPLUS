@@ -3,6 +3,8 @@
 # Vend Inventory Upload &middot; [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=requirements.txt) [![Build Status](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload.svg?branch=master)](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
 > Locally Hosted Web Application for easy CSV upload of inventory numbers for the POS and Inventory Management Software "Vend"
 
+This README is intended to give an overview of this project for developers. For those who wish to use the product, please go to this project's website.
+
 
 ## Table of Contents
 
