@@ -1,0 +1,155 @@
+#!/bin/bash
+
+# @Author: AnthonyKenny98
+# @Date:   2020-01-14 15:18:30
+# @Last Modified by:   AnthonyKenny98
+# @Last Modified time: 2020-01-20 13:26:49
+
+cd -- "$(dirname "$BASH_SOURCE")"
+
+ROOT=`pwd`
+LOGS_FOLDER="$ROOT/logs"
+INSTALL_LOG="$LOGS_FOLDER/install.out"
+VENV_FOLDER="venv"
+PYTHON_VERSION="Python 3.7.6"
+
+
+# Function to log string and print to stdout
+log_print () {
+    printf "$1" 2>&1 | tee -a $INSTALL_LOG
+}
+
+# Function to catch keyboard interupt
+user_interrupt(){
+        echo -e "\n\nKeyboard Interrupt detected."
+        sleep 1
+        deactivate > /dev/null 2>&1
+        echo -e "\nCleaning up..."
+        exit 1;
+}
+
+install() {
+    # BEGIN
+    clear
+    trap user_interrupt SIGINT
+    trap user_interrupt SIGTSTP
+
+    # INSTALL SCREEN
+    printf "
+===============================================================================
+|                                                                             |
+|                                   VendPLUS                                  |
+|                                   --------                                  |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                         Installation will begin shortly                     |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|           https://github.com/AnthonyKenny98/Vend_Inventory_Upload           |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                  MIT License                                |
+|                        Copyright © Anthony Kenny 2020                       |
+===============================================================================
+    "
+
+    sleep 3
+    clear
+
+    # Make folder for logs
+    log_print "Setting up installation logs...\n"
+    if [ ! -d "$LOGS_FOLDER" ]; then
+        mkdir "$LOGS_FOLDER"
+    fi
+
+    # Remove existing logs
+    if [ -f "$INSTALL_LOG" ]; then
+        rm $INSTALL_LOG
+        touch $INSTALL_LOG
+    fi
+    log_print "Done\n\n"
+
+    # Check correct python version is installed
+    log_print "Checking python 3.7.6 is installed...\n"
+    pythonVersion=$(python3 --version)
+    printf "System Python3 = $pythonVersion\n" >> $INSTALL_LOG
+
+    # If not correct Version
+    if [ "$pythonVersion" != "$PYTHON_VERSION" ]; then
+        log_print "Incorrect version of Python\n\n"
+
+        # Check if another version of Python3 exists
+        if hash python3 2>/dev/null; then
+            log_print "A different version of python3 is installed.\n"
+            log_print "This should be okay to continue.\nContinue? (y/n)"
+            read keepGoing
+            if [ $keepGoing == "n" ]; then
+                log_print "Installation Abandoned\n"
+                exit 1;
+            fi
+        fi
+    fi
+    log_print "Continuing installation with $pythonVersion\n\n"
+
+
+    # Check pip3 is installed
+    log_print "Checking pip3 is installed...\n"
+    if ! hash pip3 2>/dev/null; then
+        log_print "\nERROR: pip3 is not installed and is required.\nExiting."
+        exit 1;
+    fi
+    log_print "Done\n\n"
+
+
+    # Install virtualenv
+    log_print "Installing virtualenv package...\n"
+    pip3 install virtualenv >> $INSTALL_LOG
+    log_print "Done\n\n"
+
+    # Remove existing Venv folder
+    if [ -d "$VENV_FOLDER" ]; then
+        log_print "Removing existing virtual environment...\n"
+        rm -rf "$VENV_FOLDER"
+        log_print "Done\n\n"
+    fi
+
+    # Create New Virtual Environment
+    log_print "Creating New Virtual Environment...\n"
+    virtualenv venv >> $INSTALL_LOG
+    log_print "Done\n\n"
+
+    # Source Virtual Env
+    log_print "Entering Virtual Environment...\n"
+    source $ROOT/venv/bin/activate
+    log_print "Done\n\n"
+
+    # Installing Dependencies
+    log_print "Installing Dependencies...\n"
+    pip3 install -r requirements.txt >> $INSTALL_LOG
+
+    # Compare lines of pip freeze and requirements.txt to
+    # determine if all requirements were installed.
+    lenPIP=$(pip3 freeze | wc -l)
+    lenREQ=$(wc -l < requirements.txt)
+    if (( lenPIP != lenREQ)); then
+        log_print "pip3 failed to install all dependencies. Exiting\n"
+        exit 1;
+    fi
+    log_print "Done\n\n"
+
+    # # Deactivate Virtual Environment
+    log_print "Exiting Virtual Environment\n"
+    deactivate >> $INSTALL_LOG
+    log_print "Done.\n\n\nInstallation Complete!!!\n\n"
+}
+
+install
+sleep 1
+osascript -e 'tell application "Terminal" to close first window' & exit
