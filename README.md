@@ -3,7 +3,7 @@
 # Vend Inventory Upload &middot; [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=requirements.txt) [![Build Status](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload.svg?branch=master)](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
 > Locally Hosted Web Application for easy CSV upload of inventory numbers for the POS and Inventory Management Software "Vend"
 
-This README is intended to give an overview of this project for developers. For those who merely wish to use the product, please go to this project's website.
+This README is intended to give an overview of this project and how to install and run the application. Help for how to use the application can be found on the initial loading page.
 
 
 ## Table of Contents
@@ -21,14 +21,15 @@ This README is intended to give an overview of this project for developers. For 
 
 ## <a name="setup"></a>Installation/Setup
 
-A quick introduction of the minimal setup you need to get a hello world up &
-running.
+Once you have satisfied all the [prerequisites](#prereq), you can clone the repository:
 
 ```shell
-commands here
+git clone https://github.com/AnthonyKenny98/Vend_Inventory_Upload.git
 ```
+Alternatively, you can download the zip of the files [here](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/archive/master.zip).
+Extract the files, and double click the Install file. This will open the terminal and walk through the installation. Provided all prerequisites are satisfied, you should not have to do anything during this part.
 
-Here you should say what actually happens when you execute the code above.
+Once installed, you can open the application by double clicking the executable file generated called "VendPLUS".
 
 ### <a name="builtwith"> </a>Built With
 + [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
@@ -43,20 +44,6 @@ Here you should say what actually happens when you execute the code above.
   ```
 + [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew
 + [pip3](https://pip.pypa.io/en/stable/): Installed with Homebrew
-
-### <a name="build"></a>Building
-
-If your project needs some additional steps for the developer to build the
-project after some code changes, state them here. for example:
-
-```shell
-./configure
-make
-make install
-```
-
-Here again you should state what actually happens when the code above gets
-executed.
 
 ## <a name="version"></a>Versioning
 
