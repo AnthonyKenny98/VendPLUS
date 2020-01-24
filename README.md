@@ -45,16 +45,6 @@ Once installed, you can open the application by double clicking the executable f
 + [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew
 + [pip3](https://pip.pypa.io/en/stable/): Installed with Homebrew
 
-## <a name="version"></a>Versioning
-
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [link to tags on this repository](/tags).
-
-
-## <a name="config"></a>Configuration
-
-Here you should write what are all of the configurations a user can enter when
-using the project.
-
 ## <a name="tests"></a>Tests
 
 This project uses pytest for unit testing.
