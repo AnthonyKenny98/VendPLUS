@@ -40,13 +40,13 @@ printf "
 |                                   --------                                  |
 |                                                                             |
 |                                                                             |
-|                                                                             |
 |                Locally Based Web Application is currently running.          |
 |                    The application should open automatically                |
 |                            in your default web browser.                     |
 |                                                                             |
 |                If nothing happens after a few seconds, go to                |
 |                             http://127.0.0.1:5000                           |
+|                    (You may need to refresh your browser)                   |
 |                                                                             |
 |                                                                             |
 |           https://github.com/AnthonyKenny98/Vend_Inventory_Upload           |
