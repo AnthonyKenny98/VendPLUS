@@ -12,6 +12,7 @@ This README is intended to give an overview of this project and how to install a
   + [Easy Install](#easy)
   + [Prerequisites](#prereq)
   + [Built With](#builtwith)
+  + [Installation for Developers](#devinstall)
 + [Versioning](#version)
 + [Configuration](#config)
 + [Tests](#tests)
@@ -60,7 +61,7 @@ This README is intended to give an overview of this project and how to install a
 ### <a name="devinstall"></a>Installation for Developers
 
   ```shell
-  $ git clone 
+  $ git clone git@github.com:AnthonyKenny98/VendPLUS.git
   $ cd VendPLUS
   $ ./Install
   $ ./VendPLUS
