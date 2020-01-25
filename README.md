@@ -33,10 +33,21 @@ Once installed, you can open the application by double clicking the executable f
 ### <a name="prereq"></a>Prerequisites
 + [Homebrew](https://brew.sh/#install): Homebrew is a package manager for MacOS and Linux. It is only important for downloading and installing Python 3.7.6. Homebrew can be installed by executing the following command in the Terminal:
 
+  ```shell
+  $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ```
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
++ [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew. You can check if you have the correct version by executing the following command in the Terminal:
+
+  ```shell
+  $ python3 --version
+  Python 3.7.6
   ```
-+ [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew
+  
+  If Python3 is not installed or out of date, you can install it by executing:
+  ```shell
+  $ brew install python
+  ```
+
 + [pip3](https://pip.pypa.io/en/stable/): Installed with Homebrew
 
 ### <a name="builtwith"> </a>Built With
