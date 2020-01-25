@@ -9,9 +9,8 @@ This README is intended to give an overview of this project and how to install a
 ## Table of Contents
 
 + [Installation/Setup](#setup)
-  + [Built With](#builtwith)
   + [Prerequisites](#prereq)
-  + [Building](#build)
+  + [Built With](#builtwith)
 + [Versioning](#version)
 + [Configuration](#config)
 + [Tests](#tests)
@@ -31,11 +30,6 @@ Extract the files, and double click the Install file. This will open the termina
 
 Once installed, you can open the application by double clicking the executable file generated called "VendPLUS".
 
-### <a name="builtwith"> </a>Built With
-+ [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
-+ [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to [BlackRock Digital](https://github.com/BlackrockDigital) for the [StartBootstrap Admin Template](https://github.com/BlackrockDigital/startbootstrap-sb-admin) template, which served as a foundation for this application's UI.
-+ [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
-
 ### <a name="prereq"></a>Prerequisites
 + [Homebrew](https://brew.sh/#install): Homebrew is a package manager for MacOS and Linux. It is only important for downloading and installing Python 3.7.6. Homebrew can be installed by executing the following command in the Terminal:
 
@@ -44,6 +38,11 @@ Once installed, you can open the application by double clicking the executable f
   ```
 + [Python 3.7.6](https://www.python.org/downloads/release/python-376/): Installed with Homebrew
 + [pip3](https://pip.pypa.io/en/stable/): Installed with Homebrew
+
+### <a name="builtwith"> </a>Built With
++ [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
++ [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to [BlackRock Digital](https://github.com/BlackrockDigital) for the [StartBootstrap Admin Template](https://github.com/BlackrockDigital/startbootstrap-sb-admin) template, which served as a foundation for this application's UI.
++ [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
 
 ## <a name="tests"></a>Tests
 
