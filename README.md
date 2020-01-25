@@ -9,6 +9,7 @@ This README is intended to give an overview of this project and how to install a
 ## Table of Contents
 
 + [Installation/Setup](#setup)
+  + [Easy Install](#easy)
   + [Prerequisites](#prereq)
   + [Built With](#builtwith)
 + [Versioning](#version)
@@ -19,6 +20,13 @@ This README is intended to give an overview of this project and how to install a
 + [Licensing](#license)
 
 ## <a name="setup"></a>Installation/Setup
+
+### <a name="easy"></a>Easy Install
+
+1. Satisfy all the [prerequisites](#prereq).
+2. Download the zip file of the program [here](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/archive/master.zip), [uncompress](https://support.apple.com/en-au/guide/mac-help/mchlp2528/mac) the file, and move to your desired install location (Desktop is simple and easy).
+3. Open the main folder "VendPLUS" and double click the "Install" file.
+
 
 Once you have satisfied all the [prerequisites](#prereq), you can clone the repository:
 
