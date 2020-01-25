@@ -26,17 +26,11 @@ This README is intended to give an overview of this project and how to install a
 1. Satisfy all the [prerequisites](#prereq).
 2. Download the zip file of the program [here](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/archive/master.zip), [uncompress](https://support.apple.com/en-au/guide/mac-help/mchlp2528/mac) the file, and move to your desired install location (Desktop is simple and easy).
 3. Open the main folder "VendPLUS" and double click the "Install" file.
+<img src="img/Install1.png" alt="demo" width="800"/>
+4. The installation may be blocked by your firewall. You can allow the installation by going to System Preferences > Security & Privacy.
+<img src="img/Install2.png" alt="demo" width="800"/>
+5. Install will open a terminal window and run through the installation. Once it is complete, you can run the program by double clicking the "VendPLUS" file that has been generated in you Applications Folder, your Desktop, and the project folder.
 
-
-Once you have satisfied all the [prerequisites](#prereq), you can clone the repository:
-
-```shell
-git clone https://github.com/AnthonyKenny98/Vend_Inventory_Upload.git
-```
-Alternatively, you can download the zip of the files [here](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/archive/master.zip).
-Extract the files, and double click the Install file. This will open the terminal and walk through the installation. Provided all prerequisites are satisfied, you should not have to do anything during this part.
-
-Once installed, you can open the application by double clicking the executable file generated called "VendPLUS".
 
 ### <a name="prereq"></a>Prerequisites
 + [Homebrew](https://brew.sh/#install): Homebrew is a package manager for MacOS and Linux. It is only important for downloading and installing Python 3.7.6. Homebrew can be installed by executing the following command in the Terminal:
@@ -62,6 +56,15 @@ Once installed, you can open the application by double clicking the executable f
 + [Flask](http://flask.palletsprojects.com/en/1.1.x/): The app is a simple, locally hosted web application built with the Flask framework.
 + [Bootstrap](https://getbootstrap.com/): The UI of the app is built using the Bootstrap library. Acknowledgement to [BlackRock Digital](https://github.com/BlackrockDigital) for the [StartBootstrap Admin Template](https://github.com/BlackrockDigital/startbootstrap-sb-admin) template, which served as a foundation for this application's UI.
 + [Jinja2](https://jinja.palletsprojects.com/en/2.10.x/): The python application passes data to the bootstrap UI using the Jinja2 Library.
+
+### <a name="devinstall"></a>Installation for Developers
+
+  ```shell
+  $ git clone 
+  $ cd VendPLUS
+  $ ./Install
+  $ ./VendPLUS
+  ```
 
 ## <a name="tests"></a>Tests
 
