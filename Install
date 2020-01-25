@@ -12,11 +12,58 @@ LOGS_FOLDER="$ROOT/logs"
 INSTALL_LOG="$LOGS_FOLDER/install.out"
 VENV_FOLDER="venv"
 PYTHON_VERSION="Python 3.7.6"
+APP_PATH="VendPLUS"
 
 
 # Function to log string and print to stdout
 log_print () {
     printf "$1" 2>&1 | tee -a $INSTALL_LOG
+}
+
+write_run_file () {
+    printf '
+cd -- "$(dirname "$BASH_SOURCE")"
+
+RUN_LOG="logs/run.out"
+
+clear
+export FLASK_APP=src/app.py
+export FLASK_ENV=development
+export FLASK_DEBUG=False
+source venv/bin/activate
+
+
+printf "
+===============================================================================
+|                                                                             |
+|                                   VendPLUS                                  |
+|                                   --------                                  |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                Locally Based Web Application is currently running.          |
+|                    The application should open automatically                |
+|                            in your default web browser.                     |
+|                                                                             |
+|                If nothing happens after a few seconds, go to                |
+|                             http://127.0.0.1:5000                           |
+|                                                                             |
+|                                                                             |
+|           https://github.com/AnthonyKenny98/Vend_Inventory_Upload           |
+|                                                                             |
+|                                                                             |
+|                                                                             |
+|                                  MIT License                                |
+|                        Copyright © Anthony Kenny 2020                       |
+===============================================================================
+"
+
+sleep 2
+open "http://127.0.0.1:5000"
+flask run --host=127.0.0.1 > $RUN_LOG 2>&1
+' > "$APP_PATH"
+chmod u+x $APP_PATH
+ln -s "`pwd`/$APP_PATH" "/Applications/$APP_PATH"
 }
 
 # Function to catch keyboard interupt
@@ -144,12 +191,15 @@ install() {
     fi
     log_print "Done\n\n"
 
-    # # Deactivate Virtual Environment
+    # Write Run File
+
+    # Deactivate Virtual Environment
     log_print "Exiting Virtual Environment\n"
     deactivate >> $INSTALL_LOG
     log_print "Done.\n\n\nInstallation Complete!!!\n\n"
 }
 
 install
+write_run_file
 sleep 1
 osascript -e 'tell application "Terminal" to close first window' & exit

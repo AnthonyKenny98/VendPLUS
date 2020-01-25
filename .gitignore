@@ -118,4 +118,8 @@ local.py
 # temp files
 temp/*.*
 
+# Log files
 logs/
+
+# Executable
+VendPLUS
