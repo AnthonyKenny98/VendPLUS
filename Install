@@ -13,6 +13,7 @@ INSTALL_LOG="$LOGS_FOLDER/install.out"
 VENV_FOLDER="venv"
 PYTHON_VERSION="Python 3.7.6"
 APP_PATH="VendPLUS"
+CRED_FOLDER="$ROOT/src/vend/secure"
 
 
 # Function to log string and print to stdout
@@ -192,7 +193,20 @@ install() {
     fi
     log_print "Done\n\n"
 
-    # Write Run File
+    # Write Credential File
+    log_print "Next, we need the credentials from your Vend Developer Account.\n\n"
+    printf "Please input your Vend Application Client ID: "
+    read ClientID
+    printf "Please input your Vend Application Client Secret: "
+    read ClientSecret
+    if [ ! -d "$CRED_FOLDER" ]; then
+        mkdir "$CRED_FOLDER"
+    fi
+    printf '
+{
+    "client_id": "%s",
+    "client_secret": "%s"
+}' $ClientID $ClientSecret > "$CRED_FOLDER/vend.credentials"
 
     # Deactivate Virtual Environment
     log_print "Exiting Virtual Environment\n"
@@ -202,5 +216,5 @@ install() {
 
 install
 write_run_file
-sleep 1
+sleep 3
 osascript -e 'tell application "Terminal" to close first window' & exit

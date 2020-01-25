@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Author: AnthonyKenny98
 # @Date:   2019-11-08 10:28:57
-# @Last Modified by:   Anthony
+# @Last Modified by:   AnthonyKenny98
 
 from .vend import Vend
 from werkzeug.utils import secure_filename
@@ -15,15 +15,6 @@ import csv
 app = Flask(__name__)
 dir_path = os.path.dirname(os.path.realpath(__file__))
 app.config["TEMP_PATH"] = dir_path + '/temp'
-
-
-def connect_vend():
-    """Instantiate Vend Instance, redirect if not authenitcated."""
-    v = Vend()
-    if not v.authenticated:
-        return redirect('/authenticate')
-    return v
-
 
 # @app.route('/favicon.ico')
 # def favicon():
@@ -49,14 +40,18 @@ def token():
 @app.route('/')
 def index():
     """Basic Respond."""
-    connect_vend()
+    v = Vend()
+    if not v.authenticated:
+        return redirect('authenticate')
     return render_template('index.html')
 
 
 @app.route('/inventory_count', methods=['GET'])
 def inventory_count():
     """Inventory Count Handler."""
-    v = connect_vend()
+    v = Vend()
+    if not v.authenticated:
+        return redirect('authenticate')
     return render_template(
         'tables.html',
         data={
@@ -79,7 +74,9 @@ def allowed_file(filename):
 @app.route('/inventory_count/create', methods=['GET', 'POST'])
 def new_inventory_count():
     """Create Inventory Count."""
-    v = connect_vend()
+    v = Vend()
+    if not v.authenticated:
+        return redirect('authenticate')
     if request.method == 'GET':
         return render_template(
             'newCount.html',
