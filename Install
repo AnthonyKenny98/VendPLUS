@@ -179,12 +179,12 @@ install() {
 
     # Installing Dependencies
     log_print "Installing Dependencies...\n"
-    pip3 install -r requirements.txt >> $INSTALL_LOG
+    pip3 install -r src/requirements.txt >> $INSTALL_LOG
 
     # Compare lines of pip freeze and requirements.txt to
     # determine if all requirements were installed.
     lenPIP=$(pip3 freeze | wc -l)
-    lenREQ=$(wc -l < requirements.txt)
+    lenREQ=$(wc -l < src/requirements.txt)
     if (( lenPIP != lenREQ)); then
         log_print "pip3 failed to install all dependencies. Exiting\n"
         exit 1;

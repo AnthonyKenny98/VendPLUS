@@ -1,6 +1,6 @@
 <img src="img/vend.png" alt="project logo image" width="200"/>
 
-# VendPLUS&middot; [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=requirements.txt) [![Build Status](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload.svg?branch=master)](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
+# VendPLUS&middot; [![Known Vulnerabilities](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload/badge.svg?targetFile=src/requirements.txt)](https://snyk.io/test/github/AnthonyKenny98/Vend_Inventory_Upload?targetFile=src/requirements.txt) [![Build Status](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload.svg?branch=master)](https://travis-ci.org/AnthonyKenny98/Vend_Inventory_Upload) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/AnthonyKenny98/Vend_Inventory_Upload/blob/master/LICENSE)
 > Locally Hosted Web Application for easy CSV upload of inventory numbers for the POS and Inventory Management Software "Vend"
 
 This README is intended to give an overview of this project and how to install and run the application. Help for how to use the application can be found on the initial loading page.
