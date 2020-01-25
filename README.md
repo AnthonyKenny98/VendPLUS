@@ -30,10 +30,18 @@ This README is intended to give an overview of this project and how to install a
 <img src="img/Install1.png" alt="demo" width="800"/>
 4. The installation may be blocked by your firewall. You can allow the installation by going to System Preferences > Security & Privacy.
 <img src="img/Install2.png" alt="demo" width="800"/>
-5. Install will open a terminal window and run through the installation. Once it is complete, you can run the program by double clicking the "VendPLUS" file that has been generated in you Applications Folder, your Desktop, and the project folder.
+5. Install will open a terminal window and run through the installation. It will prompt you for your Vend Application Client ID and Secret. This can be found on your [Vend Developer Applications Page](https://developers.vendhq.com/developer/applications).
+<img src="img/VendDev2.png" alt="VendDevDemo" width="800"/>
+Once it is complete, you can run the program by double clicking the "VendPLUS" file that has been generated in you Applications Folder, your Desktop, and the project folder.
 
 
 ### <a name="prereq"></a>Prerequisites
++ [Vend Developer Account](https://developers.vendhq.com/developer/sign-up): Since this is a locally hosted application, you'll need to create your own Vend Developer Account. This is very easy, and simply allows the application running on your machine to access your Vend Account. Follow the steps below:
+
+  1. Sign up for an account [here](https://developers.vendhq.com/developer/sign-up)
+  2. Create an application [here](https://developers.vendhq.com/developer/applications/create). You can name the application anything you want, **but the redirect URI must be "http://127.0.0.1:5000/token".** This tells Vend where the application will be running on your machine.
+  <img src="img/VendDev1.png" alt="VendDevDemo" width="800"/>
+
 + [Homebrew](https://brew.sh/#install): Homebrew is a package manager for MacOS and Linux. It is only important for downloading and installing Python 3.7.6. Homebrew can be installed by executing the following command in the Terminal:
 
   ```shell
