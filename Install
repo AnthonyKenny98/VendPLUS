@@ -64,6 +64,7 @@ flask run --host=127.0.0.1 > $RUN_LOG 2>&1
 ' > "$APP_PATH"
 chmod u+x $APP_PATH
 ln -s "`pwd`/$APP_PATH" "/Applications/$APP_PATH"
+ln -s "`pwd`/$APP_PATH" "/Desktop/$APP_PATH"
 }
 
 # Function to catch keyboard interupt
