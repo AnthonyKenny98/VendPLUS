@@ -103,13 +103,19 @@ def new_inventory_count():
                                          request.form['outlet'])
         v.start_inventory_count(count)
 
+        # Read File
         with open(filename, 'r') as f:
             reader = csv.DictReader(f)
+
+            # Check File is correct format
             if 'sku' not in reader.fieldnames or \
                     'quantity' not in reader.fieldnames:
+                os.remove(filename)
                 data['message'] = 'CSV has incorrect columns'
                 return render_template(
                     'newCount.html', outlets=v.outlet(), data=data)
+
+            # Read rows
             for row in reader:
                 v.update_inventory_count(
                     count, products[row['sku']], row['quantity'])
