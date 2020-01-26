@@ -14,6 +14,7 @@ VENV_FOLDER="venv"
 PYTHON_VERSION="Python 3.7.6"
 APP_PATH="VendPLUS"
 CRED_FOLDER="$ROOT/src/vend/secure"
+TEMP_FOLDER="$ROOT/src/temp"
 
 
 # Function to log string and print to stdout
@@ -65,7 +66,6 @@ flask run --host=127.0.0.1 > $RUN_LOG 2>&1
 ' > "$APP_PATH"
 chmod u+x $APP_PATH
 ln -s "`pwd`/$APP_PATH" "/Applications/$APP_PATH"
-ln -s "`pwd`/$APP_PATH" "/Desktop/$APP_PATH"
 }
 
 # Function to catch keyboard interupt
@@ -207,6 +207,11 @@ install() {
     "client_id": "%s",
     "client_secret": "%s"
 }' $ClientID $ClientSecret > "$CRED_FOLDER/vend.credentials"
+
+    # Create Temp Folder
+    if [ ! -d "$TEMP_FOLDER" ]; then
+        mkdir "$TEMP_FOLDER"
+    fi
 
     # Deactivate Virtual Environment
     log_print "Exiting Virtual Environment\n"

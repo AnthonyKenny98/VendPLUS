@@ -14,14 +14,7 @@ import csv
 
 app = Flask(__name__)
 dir_path = os.path.dirname(os.path.realpath(__file__))
-app.config["TEMP_PATH"] = dir_path + '/temp'
-
-# @app.route('/favicon.ico')
-# def favicon():
-#     """Render Favicon."""
-#     return send_from_directory(
-#         os.path.join(app.root_path, 'static'),
-#         'favicon.ico', mimetype='image/vnd.microsoft.icon')
+app.config['TEMP_PATH'] = dir_path + '/temp'
 
 
 @app.route('/authenticate', methods=['GET'])
@@ -56,8 +49,8 @@ def inventory_count():
         'tables.html',
         data={
             'breadcrumbs': [
-                ("Inventory", "/inventory_count"),
-                ("Inventory Counts", '/inventory_count')],
+                ('Inventory', '/inventory_count'),
+                ('Inventory Counts', '/inventory_count')],
             'table': {
                 'name': 'Active Inventory Counts',
                 'data': v.get_inventory_count()
@@ -75,25 +68,28 @@ def allowed_file(filename):
 def new_inventory_count():
     """Create Inventory Count."""
     v = Vend()
+    data = {
+        'outlets': v.outlet(),
+        'breadcrumbs': [
+            ('Inventory', '/inventory_count'),
+            ('New Count', '/inventory_count/create')]
+    }
     if not v.authenticated:
         return redirect('authenticate')
     if request.method == 'GET':
         return render_template(
             'newCount.html',
-            data={
-                'outlets': v.outlet(),
-                'breadcrumbs': [
-                    ("Inventory", "/inventory_count"),
-                    ("New Inventory Count", '/inventory_count/create')]
-            })
+            data=data)
     else:
         file = request.files['fileUpload']
         if file.filename == '':
-            return render_template('newCount.html', outlets=v.outlet(),
-                                   message="No File Uploaded")
+            data['message'] = 'No File Uploaded'
+            return render_template(
+                'newCount.html', outlets=v.outlet(), data=data)
         if not allowed_file(file.filename):
-            return render_template('newCount.html', outlets=v.outlet(),
-                                   message="File was not a .csv")
+            data['message'] = 'File must be a CSV'
+            return render_template(
+                'newCount.html', outlets=v.outlet(), data=data)
 
         # Save file to temp folder
         filename = os.path.join(app.config['TEMP_PATH'],
@@ -109,6 +105,11 @@ def new_inventory_count():
 
         with open(filename, 'r') as f:
             reader = csv.DictReader(f)
+            if 'sku' not in reader.fieldnames or \
+                    'quantity' not in reader.fieldnames:
+                data['message'] = 'CSV has incorrect columns'
+                return render_template(
+                    'newCount.html', outlets=v.outlet(), data=data)
             for row in reader:
                 v.update_inventory_count(
                     count, products[row['sku']], row['quantity'])
@@ -120,7 +121,7 @@ def new_inventory_count():
 @app.errorhandler(404)
 def not_found(e):
     """Inbuilt function which takes error as parameter."""
-    return render_template("404.html")
+    return render_template('404.html')
 
 
 if __name__ == '__main__':
