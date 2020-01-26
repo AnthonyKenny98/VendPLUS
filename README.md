@@ -40,7 +40,7 @@ This README is intended to give an overview of this project and how to install a
 
 <img src="img/VendDev2.png" alt="VendDevDemo" width="800"/>
 
-Once it is complete, you can run the program by double clicking the "VendPLUS" file that has been generated in you Applications Folder, your Desktop, and the project folder.
+Once it is complete, you can run the program by double clicking the "VendPLUS" file that has been generated in you Applications Folder, and the project folder.
 
 
 ### <a name="prereq"></a>Prerequisites
