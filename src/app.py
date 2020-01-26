@@ -117,8 +117,11 @@ def new_inventory_count():
 
             # Read rows
             for row in reader:
-                v.update_inventory_count(
-                    count, products[row['sku']], row['quantity'])
+                try:
+                    v.update_inventory_count(
+                        count, products[row['sku']], row['quantity'])
+                except Exception:
+                    pass
 
         os.remove(filename)
         return redirect('/inventory_count')
